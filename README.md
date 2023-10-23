@@ -31,4 +31,7 @@ Eine Anwendung zur Verwaltung von Essensgerichten.
 * JavaFX
 * Mysql
 
+### Moqups
+https://app.moqups.com/pNXByccqHbRJ2nxFic0Tx2Ic9VcihlPc/view/page/ad64222d5
+
 
