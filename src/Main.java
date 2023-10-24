@@ -15,9 +15,6 @@ public class Main {
             while (resultSet.next()) {
                 Recipe recipe = new Recipe(resultSet.getInt("recipeId"));
                 recipe.print();
-                recipe.setDescription("This is a new description");
-                recipe.save();
-                recipe.print();
             }
         } catch (SQLException e) {
             db.printSQLException(e);
