@@ -2,13 +2,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Ingredients {
+public class Ingredient {
     private int ingredientId;
     private String name;
     private DatabaseConnection db = DatabaseConnection.getInstance();
     private Connection conn = db.getConnection();
 
-    public Ingredients(int ingredientId) {
+    public Ingredient(int ingredientId) {
         this.ingredientId = ingredientId;
         ResultSet resultSet = db.executeQuery("SELECT * FROM ingredients WHERE ingredientId = " + ingredientId);
         try {
