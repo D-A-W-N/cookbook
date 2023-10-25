@@ -1,16 +1,19 @@
+package model;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import controller.*;
 
-public class Category {
-    private int categoryId;
+public class Ingredient {
+    private int ingredientId;
     private String name;
     private DatabaseConnection db = DatabaseConnection.getInstance();
     private Connection conn = db.getConnection();
 
-    public Category(int categoryId) {
-        this.categoryId = categoryId;
-        ResultSet resultSet = db.executeQuery("SELECT * FROM categories WHERE categoryId = " + categoryId);
+    public Ingredient(int ingredientId) {
+        this.ingredientId = ingredientId;
+        ResultSet resultSet = db.executeQuery("SELECT * FROM ingredients WHERE ingredientId = " + ingredientId);
         try {
             while (resultSet.next()) {
                 this.name = resultSet.getString("name");
@@ -20,13 +23,13 @@ public class Category {
         }
     }
 
-    static boolean createCategory(String name) {
+    static boolean createIngredients(String name) {
         DatabaseConnection db = DatabaseConnection.getInstance();
         Connection conn = db.getConnection();
 
-        // Create a new category in the database
+        // Create a new ingredients in the database
         try {
-            conn.createStatement().executeUpdate("INSERT INTO categories (name) " +
+            conn.createStatement().executeUpdate("INSERT INTO ingredients (name) " +
                     "VALUES ('" + name + "')");
             return true;
         } catch (SQLException e) {
@@ -36,7 +39,7 @@ public class Category {
     }
 
     public void print() {
-        System.out.println("Category ID: " + this.categoryId);
+        System.out.println("Ingredient ID: " + this.ingredientId);
         System.out.println("Name: " + this.name);
     }
 }

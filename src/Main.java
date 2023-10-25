@@ -3,6 +3,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import controller.*;
+import model.*;
 
 public class Main {
 
@@ -10,7 +12,15 @@ public class Main {
         DatabaseConnection db = DatabaseConnection.getInstance();
         Connection conn = db.getConnection();
 
-        boolean createRecipe = Recipe.createRecipe("Test Recipe",
+        /*boolean createCategory = Category.createCategory("Test Category");
+
+        if(createCategory) {
+            System.out.println("Category created successfully");
+        } else {
+            System.out.println("Category creation failed");
+        }*/
+
+        /*boolean createRecipe = Recipe.createRecipe("Test Recipe",
                 "Test Description",
                 "Test Instructions",
                 10,
@@ -24,7 +34,7 @@ public class Main {
             System.out.println("Recipe created successfully");
         } else {
             System.out.println("Recipe creation failed");
-        }
+        }*/
 
         try {
             ResultSet resultSet = db.executeQuery("SELECT * FROM recipes");
