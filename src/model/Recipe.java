@@ -95,6 +95,17 @@ public class Recipe {
     }
 
     public String getCategory() {
+        DatabaseConnection db = DatabaseConnection.getInstance();
+        Connection conn = db.getConnection();
+        ResultSet resultSet = db.executeQuery("SELECT * FROM categories WHERE categoryId = " + this.category);
+        try {
+            while (resultSet.next()) {
+                return resultSet.getString("name");
+            }
+        } catch (SQLException e) {
+            db.printSQLException(e);
+            return null;
+        }
         return this.category;
     }
 
@@ -169,7 +180,7 @@ public class Recipe {
         System.out.println("Preparation Type: " + this.preparation_type);
         System.out.println("Nutrition: " + this.nutrition);
         System.out.println("Calories: " + this.calories);
-        System.out.println("Category: " + this.category);
+        System.out.println("Category: " + this.getCategory());
         System.out.println("Picture: " + this.picture);
     }
 
