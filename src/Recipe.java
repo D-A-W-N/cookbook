@@ -36,6 +36,29 @@ public class Recipe {
         }
     }
 
+    static boolean createRecipe(String name,
+                               String description,
+                               String instructions,
+                               Integer cooking_time,
+                               String preparation_type,
+                               String nutrition,
+                               float calories,
+                               Integer category,
+                               String picture) {
+        DatabaseConnection db = DatabaseConnection.getInstance();
+        Connection conn = db.getConnection();
+
+        // Create a new recipe in the database
+        try {
+            conn.createStatement().executeUpdate("INSERT INTO recipes (name, description, instructions, cooking_time, preparation_type, nutrition, calories, category, picture) " +
+                    "VALUES ('" + name + "', '" + description + "', '" + instructions + "', " + cooking_time + ", '" + preparation_type + "', '" + nutrition + "', " + calories + ", " + category + ", '" + picture + "')");
+            return true;
+        } catch (SQLException e) {
+            db.printSQLException(e);
+            return false;
+        }
+    }
+
     public int getRecipeId() {
         return this.recipeId;
     }
