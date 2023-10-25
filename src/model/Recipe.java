@@ -95,18 +95,8 @@ public class Recipe {
     }
 
     public String getCategory() {
-        DatabaseConnection db = DatabaseConnection.getInstance();
-        Connection conn = db.getConnection();
-        ResultSet resultSet = db.executeQuery("SELECT * FROM categories WHERE categoryId = " + this.category);
-        try {
-            while (resultSet.next()) {
-                return resultSet.getString("name");
-            }
-        } catch (SQLException e) {
-            db.printSQLException(e);
-            return null;
-        }
-        return this.category;
+        Category category = new Category(Integer.parseInt(this.category));
+        return category.getName();
     }
 
     public String getPicture() {

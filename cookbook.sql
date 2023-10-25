@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 24, 2023 at 10:38 AM
+-- Generation Time: Oct 25, 2023 at 10:23 AM
 -- Server version: 10.6.12-MariaDB-1:10.6.12+maria~ubu2004-log
 -- PHP Version: 7.2.34
 
@@ -31,6 +31,14 @@ CREATE TABLE `categories` (
   `categoryId` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`categoryId`, `name`) VALUES
+(1, 'Test Category'),
+(2, 'Test Category2');
 
 -- --------------------------------------------------------
 
@@ -69,7 +77,12 @@ CREATE TABLE `recipes` (
 INSERT INTO `recipes` (`recipeId`, `name`, `description`, `instructions`, `cooking_time`, `preparation_type`, `nutrition`, `calories`, `category`, `picture`) VALUES
 (1, '', 'This is a new description', '', 0, '', '', 0, 0, ''),
 (2, '', 'This is a new description', '', 0, '', '', 0, 0, ''),
-(3, '', 'This is a new description', '', 0, '', '', 0, 0, '');
+(3, '', 'This is a new description', '', 0, '', '', 0, 0, ''),
+(4, 'Test Recipe', 'Test Description', 'Test Instructions', 10, 'Test Preparation Type', 'Test Nutrition', 100, 1, 'Test Picture'),
+(5, 'Test Recipe', 'Test Description', 'Test Instructions', 10, 'Test Preparation Type', 'Test Nutrition', 100, 1, 'Test Picture'),
+(6, 'Test Recipe', 'Test Description', 'Test Instructions', 10, 'Test Preparation Type', 'Test Nutrition', 100, 1, 'Test Picture'),
+(7, 'Test Recipe', 'Test Description', 'Test Instructions', 10, 'Test Preparation Type', 'Test Nutrition', 100, 1, 'Test Picture'),
+(8, 'Test Recipe', 'Test Description', 'Test Instructions', 10, 'Test Preparation Type', 'Test Nutrition', 100, 1, 'Test Picture');
 
 -- --------------------------------------------------------
 
@@ -122,7 +135,7 @@ ALTER TABLE `recipe_ingredients`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
@@ -134,7 +147,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-  MODIFY `recipeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `recipeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

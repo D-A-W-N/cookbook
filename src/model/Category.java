@@ -11,6 +11,10 @@ public class Category {
     private DatabaseConnection db = DatabaseConnection.getInstance();
     private Connection conn = db.getConnection();
 
+    public String getName() {
+        return name;
+    }
+
     public Category(int categoryId) {
         this.categoryId = categoryId;
         ResultSet resultSet = db.executeQuery("SELECT * FROM categories WHERE categoryId = " + categoryId);
