@@ -1,11 +1,13 @@
 package com.example.demo.model;
 
 import com.example.demo.DatabaseConnection;
+import javafx.scene.Node;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class Recipe {
+public class Recipe extends Node {
     private int recipeId;
     private String name;
     private String description;
@@ -174,4 +176,8 @@ public class Recipe {
         System.out.println("Picture: " + this.picture);
     }
 
+    @Override
+    public Node getStyleableNode() {
+        return super.getStyleableNode();
+    }
 }
