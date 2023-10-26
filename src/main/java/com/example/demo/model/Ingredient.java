@@ -1,9 +1,9 @@
-package model;
+package com.example.demo.model;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import controller.*;
+import com.example.demo.DatabaseConnection;
 
 public class Ingredient {
     private int ingredientId;

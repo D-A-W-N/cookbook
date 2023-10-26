@@ -1,9 +1,9 @@
-package model;
+package com.example.demo.model;
 
+import com.example.demo.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-import controller.*;
 
 public class Recipe {
     private int recipeId;
