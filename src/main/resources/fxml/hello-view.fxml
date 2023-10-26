@@ -34,10 +34,10 @@
                   </TextField>
                </children>
                <padding>
-                  <Insets bottom="50.0" top="20.0" />
+                  <Insets top="20.0" />
                </padding>
             </StackPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="886.0" spacing="150.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
