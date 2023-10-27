@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mysql
--- Generation Time: Oct 26, 2023 at 10:32 AM
+-- Generation Time: Oct 27, 2023 at 07:30 AM
 -- Server version: 10.6.12-MariaDB-1:10.6.12+maria~ubu2004-log
 -- PHP Version: 7.2.34
 
@@ -37,8 +37,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`categoryId`, `name`) VALUES
-(1, 'Test Category'),
-(2, 'Test Category2');
+(1, 'Hauptspeise'),
+(2, 'Dessert'),
+(3, 'Vorspeise');
 
 -- --------------------------------------------------------
 
@@ -50,6 +51,62 @@ CREATE TABLE `ingredients` (
   `ingredientId` int(11) NOT NULL,
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ingredients`
+--
+
+INSERT INTO `ingredients` (`ingredientId`, `name`) VALUES
+(1, 'Kürbisfleisch'),
+(2, 'Zwiebel'),
+(4, 'Champignons, weiß'),
+(5, 'Eier'),
+(6, 'Peperoni, rot'),
+(7, 'Oregano'),
+(8, 'Kräuter, gemischt'),
+(9, 'Salz'),
+(10, 'Pfeffer'),
+(11, 'Rapsöl'),
+(12, 'Fett'),
+(13, 'Hähnchenbrustfilet(s)'),
+(14, 'Speisestärke'),
+(15, 'Erdnussöl'),
+(16, 'Cashewnüsse'),
+(17, 'Knoblauchzehe'),
+(18, 'Currypaste (Massaman)'),
+(19, 'Kokosmilch'),
+(20, 'Hühnerbrühe'),
+(21, 'Kartoffeln, festkochend'),
+(22, 'Kartoffeln, mehlig kochend'),
+(23, 'Kartoffeln,vorwiegend festkochend'),
+(24, 'Tamarindenpaste'),
+(25, 'Palmzucker'),
+(26, 'Fischsauce'),
+(27, 'Chiliflocken'),
+(28, 'Ananas, frische\r\n'),
+(29, 'Frühlingszwiebel(n)'),
+(30, 'Orecchiette'),
+(31, 'Brokkoli'),
+(32, 'Thymianzweig(e)'),
+(33, 'Olivenöl'),
+(34, 'Mazzetti Condimento Bianco'),
+(35, 'Parmesan'),
+(36, 'Sardellenfilet(s), in Öl eingelegt'),
+(37, 'Tagliatelle'),
+(38, 'Chilischote(n)'),
+(39, 'Spitzpaprika'),
+(40, 'Petersilie'),
+(41, 'Zitrone(n)'),
+(42, 'Garnele(n), geschälte (TK)'),
+(43, 'Paprikapulver, edelsüßes'),
+(44, 'Bürger Schwäbische Eierspätzle'),
+(45, 'Butter'),
+(46, 'Champignons, braune'),
+(47, 'Weißwein'),
+(48, 'Sahne'),
+(49, 'Gemüsebrühepulver'),
+(50, 'Blattspinat'),
+(51, 'Kirschtomate(n)');
 
 -- --------------------------------------------------------
 
@@ -95,6 +152,75 @@ CREATE TABLE `recipe_ingredients` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `recipe_ingredients`
+--
+
+INSERT INTO `recipe_ingredients` (`recipeId`, `ingredientId`, `amount`, `measure`) VALUES
+(4, 1, 330, 'g'),
+(4, 2, 2, 'Stk'),
+(4, 4, 100, 'g'),
+(4, 5, 5, 'Stk'),
+(4, 6, 1, 'Stk'),
+(4, 7, 3, 'Stk'),
+(4, 8, 1, 'EL'),
+(4, 9, 1, 'Pr'),
+(4, 10, 1, 'Pr'),
+(4, 11, 3, 'EL'),
+(4, 12, 20, 'g'),
+(4, 17, 2, 'Stk'),
+(5, 2, 2, 'Stk'),
+(5, 13, 200, 'g'),
+(5, 14, 1, 'TL'),
+(5, 15, 4, 'EL'),
+(5, 16, 40, 'g'),
+(5, 17, 1, 'Stk'),
+(5, 18, 1, 'EL'),
+(5, 19, 400, 'ml'),
+(5, 20, 250, 'ml'),
+(5, 21, 2, 'Stk'),
+(5, 24, 1, 'TL'),
+(5, 25, 1, 'TL'),
+(5, 26, 3, 'EL'),
+(5, 27, 1, 'Pr'),
+(5, 28, 2, 'Scheiben'),
+(5, 29, 2, 'Stk'),
+(6, 7, 4, 'Stiel(e)'),
+(6, 9, 1, 'Pr'),
+(6, 10, 1, 'Pr'),
+(6, 17, 6, 'Stk'),
+(6, 30, 600, 'g'),
+(6, 31, 800, 'g'),
+(6, 32, 10, 'Stk'),
+(6, 33, 8, 'EL'),
+(6, 34, 6, 'EL'),
+(6, 35, 100, 'g'),
+(6, 36, 60, 'g'),
+(7, 9, 1, 'Pr'),
+(7, 10, 1, 'Pr'),
+(7, 17, 2, 'Stk'),
+(7, 33, 3, 'EL'),
+(7, 37, 300, 'g'),
+(7, 38, 2, 'Stk'),
+(7, 39, 2, 'Stk'),
+(7, 40, 1, 'Bund'),
+(7, 41, 1, 'Stk'),
+(7, 42, 250, 'g'),
+(7, 43, 1, 'TL'),
+(8, 2, 1, 'Stk'),
+(8, 9, 1, 'Pr'),
+(8, 10, 1, 'Pr'),
+(8, 17, 1, 'Stk'),
+(8, 35, 30, 'g'),
+(8, 44, 800, 'g'),
+(8, 45, 2, 'EL'),
+(8, 46, 100, 'g'),
+(8, 47, 3, 'EL'),
+(8, 48, 200, 'g'),
+(8, 49, 1, 'TL'),
+(8, 50, 100, 'g'),
+(8, 51, 100, 'g');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -132,13 +258,13 @@ ALTER TABLE `recipe_ingredients`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredientId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ingredientId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `recipes`
