@@ -8,8 +8,34 @@ import com.example.demo.DatabaseConnection;
 public class Ingredient {
     private int ingredientId;
     private String name;
+    private int amount;
+    private String measure;
     private DatabaseConnection db = DatabaseConnection.getInstance();
     private Connection conn = db.getConnection();
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
+
+    public int getIngredientId() {
+        return this.ingredientId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getAmount() {
+        return this.amount;
+    }
+
+    public String getMeasure() {
+        return this.measure;
+    }
 
     public Ingredient(int ingredientId) {
         this.ingredientId = ingredientId;
@@ -18,7 +44,7 @@ public class Ingredient {
             while (resultSet.next()) {
                 this.name = resultSet.getString("name");
             }
-        } catch (SQLException e) {
+        } catch (SQLException e) {;
             db.printSQLException(e);
         }
     }

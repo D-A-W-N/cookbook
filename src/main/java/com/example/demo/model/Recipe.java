@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Recipe extends Node {
     private int recipeId;
@@ -103,6 +104,22 @@ public class Recipe extends Node {
 
     public String getPicture() {
         return this.picture;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+        ResultSet resultSet = db.executeQuery("SELECT * FROM recipe_ingredients WHERE recipeId = " + this.recipeId);
+        try {
+            while (resultSet.next()) {
+                Ingredient ingredient = new Ingredient(resultSet.getInt("ingredientId"));
+                ingredient.setAmount(resultSet.getInt("amount"));
+                ingredient.setMeasure(resultSet.getString("measure"));
+                ingredients.add(ingredient);
+            }
+        } catch (SQLException e) {
+            db.printSQLException(e);
+        }
+        return ingredients;
     }
 
     public void setRecipeId(int recipeId) {
