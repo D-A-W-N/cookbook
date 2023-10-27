@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 
 public class FrontpageController {
@@ -38,11 +39,13 @@ public class FrontpageController {
                 Recipe recipe = new Recipe(resultSet.getInt("recipeId"));
                 VBox itemWrapper = new VBox();
                 itemWrapper.getStyleClass().add("item-wrapper");
+                itemWrapper.setAlignment(Pos.CENTER);
 
                 ImageView imageView = new ImageView();
                 Image image = new Image(MainApplication.class.getResource("/assets/" + recipe.getPicture()).toString());
                 imageView.setImage(image);
-                imageView.fitWidthProperty().bind(itemWrapper.widthProperty());
+                imageView.setFitWidth(300);
+                imageView.setFitHeight(300);
                 imageView.setPreserveRatio(true);
 
                 /*ArrayList<Ingredient> ingredientArrayList = recipe.getIngredients();
@@ -58,7 +61,9 @@ public class FrontpageController {
 
                 itemWrapper.getChildren().add(imageView);
                 itemWrapper.getChildren().add(name);
+
                 items.add(itemWrapper, count, rowCount);
+
 
                 if(count == 0) {
                     count = 1;
@@ -73,4 +78,6 @@ public class FrontpageController {
             db.printSQLException(e);
         }
     }
+
+
 }
