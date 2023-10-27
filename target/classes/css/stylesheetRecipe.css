@@ -1,0 +1,7 @@
+.headerImage{
+    -fx-background-image: url("../assets/essen2.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-border-radius: 30 30 30 30;
+}
