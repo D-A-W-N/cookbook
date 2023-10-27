@@ -107,7 +107,7 @@ public class Recipe extends Node {
     }
 
     public ArrayList<Ingredient> getIngredients() {
-        ArrayList<Ingredient > ingredients = new ArrayList<>();
+        ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
         ResultSet resultSet = db.executeQuery("SELECT * FROM recipe_ingredients WHERE recipeId = " + this.recipeId);
         try {
             while (resultSet.next()) {

@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.example.demo.model.Ingredient;
 import com.example.demo.model.Recipe;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -41,6 +44,11 @@ public class FrontpageController {
                 imageView.setImage(image);
                 imageView.fitWidthProperty().bind(itemWrapper.widthProperty());
                 imageView.setPreserveRatio(true);
+
+                /*ArrayList<Ingredient> ingredientArrayList = recipe.getIngredients();
+                for (int i=0; i < ingredientArrayList.size(); i++) {
+                    System.out.println(ingredientArrayList.get(i).getName());
+                }*/
 
                 Label name = new Label();
                 name.setText(recipe.getName());
