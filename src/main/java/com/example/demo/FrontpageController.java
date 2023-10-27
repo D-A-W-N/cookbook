@@ -39,8 +39,10 @@ public class FrontpageController {
                 ImageView imageView = new ImageView();
                 Image image = new Image(MainApplication.class.getResource("/assets/" + recipe.getPicture()).toString());
                 imageView.setImage(image);
-                imageView.fitWidthProperty().bind(itemWrapper.widthProperty());
+                imageView.setFitWidth(200);
+
                 imageView.setPreserveRatio(true);
+
 
                 Label name = new Label();
                 name.setText(recipe.getName());
@@ -51,6 +53,8 @@ public class FrontpageController {
                 itemWrapper.getChildren().add(imageView);
                 itemWrapper.getChildren().add(name);
                 items.add(itemWrapper, count, rowCount);
+                items.getStyleClass().add("items");
+
 
                 if(count == 0) {
                     count = 1;

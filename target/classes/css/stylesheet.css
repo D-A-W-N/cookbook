@@ -8,10 +8,12 @@
 .item-name {
     -fx-border-width: 1px;
     -fx-border-color: red;
-    -fx-padding: 15px 15px;
-    -fx-margin: 15px 15px;
 }
 
 .item-wrapper {
-    -fx-padding: 0 15px;
+}
+
+.items {
+    -fx-border-width: 1px;
+    -fx-border-color: red;
 }
