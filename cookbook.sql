@@ -20,9 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `cookbook`
 --
-
+CREATE Database cookbook;
 -- --------------------------------------------------------
-
+USE cookbook;
 --
 -- Table structure for table `categories`
 --
