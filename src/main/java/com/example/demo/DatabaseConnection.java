@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseConnection {
     private static DatabaseConnection ConnectionInstance = null;
@@ -18,6 +19,26 @@ public class DatabaseConnection {
             ConnectionInstance = new DatabaseConnection();
         }
         return ConnectionInstance;
+    }
+
+    public static ArrayList<String> getRecipesByName(String searchString) throws SQLException {
+        DatabaseConnection db = DatabaseConnection.getInstance();
+
+        ResultSet resultSelect = db.executeQuery("SELECT * FROM recipes WHERE name LIKE \"%" + searchString + "%\"");
+        ArrayList<String> matchingNames = new ArrayList<>();
+        while (resultSelect.next())
+        {
+            String name = resultSelect.getString("name");
+            int recipeId = resultSelect.getInt("recipeId");
+            matchingNames.add(name);
+        }
+
+        for (String name: matchingNames)
+        {
+            System.out.println(matchingNames);
+        }
+
+        return matchingNames;
     }
 
     public Connection getConnection() {

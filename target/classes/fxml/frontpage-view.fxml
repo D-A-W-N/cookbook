@@ -15,7 +15,7 @@
          <children>
             <StackPane alignment="BOTTOM_CENTER" prefHeight="265.0" prefWidth="886.0" styleClass="header">
                <children>
-                  <Label alignment="CENTER" contentDisplay="BOTTOM" text="Mittagessen" textAlignment="CENTER" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="BOTTOM" text="Kochbuch" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="72.0" />
                      </font>
@@ -24,7 +24,7 @@
             </StackPane>
             <StackPane prefHeight="70.0" prefWidth="886.0">
                <children>
-                  <TextField prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20;">
+                  <TextField fx:id="textfield" prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20;">
                      <font>
                         <Font size="20.0" />
                      </font>
