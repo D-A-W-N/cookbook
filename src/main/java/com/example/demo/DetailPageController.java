@@ -95,7 +95,7 @@ public class DetailPageController{
             String mealDescription = getInstructionForRecipe(4)[2];
             String ingredients = getInstructionForRecipe(4)[3];
 
-
+            System.out.println(ingredients);
             if (recipeInstructions != null && recipeName != null && mealDescription != null && ingredients != null) {
                 this.instructionsLabel.setText(recipeInstructions);
                 this.recipeName.setText(recipeName);
