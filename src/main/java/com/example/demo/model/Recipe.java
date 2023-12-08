@@ -14,7 +14,6 @@ public class Recipe extends Node {
     private String description;
     private String instructions;
     private int cooking_time;
-    private String preparation_type;
     private String nutrition;
     private float calories;
     private String category;
@@ -31,7 +30,6 @@ public class Recipe extends Node {
                 this.description = resultSet.getString("description");
                 this.instructions = resultSet.getString("instructions");
                 this.cooking_time = resultSet.getInt("cooking_time");
-                this.preparation_type = resultSet.getString("preparation_type");
                 this.nutrition = resultSet.getString("nutrition");
                 this.calories = resultSet.getFloat("calories");
                 this.category = resultSet.getString("category");
@@ -46,7 +44,6 @@ public class Recipe extends Node {
                                String description,
                                String instructions,
                                Integer cooking_time,
-                               String preparation_type,
                                String nutrition,
                                float calories,
                                Integer category,
@@ -56,8 +53,8 @@ public class Recipe extends Node {
 
         // Create a new recipe in the database
         try {
-            conn.createStatement().executeUpdate("INSERT INTO recipes (name, description, instructions, cooking_time, preparation_type, nutrition, calories, category, picture) " +
-                    "VALUES ('" + name + "', '" + description + "', '" + instructions + "', " + cooking_time + ", '" + preparation_type + "', '" + nutrition + "', " + calories + ", " + category + ", '" + picture + "')");
+            conn.createStatement().executeUpdate("INSERT INTO recipes (name, description, instructions, cooking_time, nutrition, calories, category, picture) " +
+                    "VALUES ('" + name + "', '" + description + "', '" + instructions + "', " + cooking_time + ", '" + "', '" + nutrition + "', " + calories + ", " + category + ", '" + picture + "')");
             return true;
         } catch (SQLException e) {
             db.printSQLException(e);
@@ -83,10 +80,6 @@ public class Recipe extends Node {
 
     public int getCookingTime() {
         return this.cooking_time;
-    }
-
-    public String getPreparationType() {
-        return this.preparation_type;
     }
 
     public String getNutrition() {
@@ -142,10 +135,6 @@ public class Recipe extends Node {
         this.cooking_time = cooking_time;
     }
 
-    public void setPreparationType(String preparation_type) {
-        this.preparation_type = preparation_type;
-    }
-
     public void setNutrition(String nutrition) {
         this.nutrition = nutrition;
     }
@@ -163,7 +152,7 @@ public class Recipe extends Node {
     }
 
     public void save() {
-        String query = "UPDATE recipes SET name = '" + this.name + "', description = '" + this.description + "', instructions = '" + this.instructions + "', cooking_time = " + this.cooking_time + ", preparation_type = '" + this.preparation_type + "', nutrition = '" + this.nutrition + "', calories = " + this.calories + ", category = '" + this.category + "', picture = '" + this.picture + "' WHERE recipeId = " + this.recipeId;
+        String query = "UPDATE recipes SET name = '" + this.name + "', description = '" + this.description + "', instructions = '" + this.instructions + "', cooking_time = " + this.cooking_time + ", nutrition = '" + this.nutrition + "', calories = " + this.calories + ", category = '" + this.category + "', picture = '" + this.picture + "' WHERE recipeId = " + this.recipeId;
         try {
             conn.createStatement().executeUpdate(query);
         } catch (SQLException e) {
@@ -186,7 +175,6 @@ public class Recipe extends Node {
         System.out.println("Description: " + this.description);
         System.out.println("Instructions: " + this.instructions);
         System.out.println("Cooking Time: " + this.cooking_time);
-        System.out.println("Preparation Type: " + this.preparation_type);
         System.out.println("Nutrition: " + this.nutrition);
         System.out.println("Calories: " + this.calories);
         System.out.println("Category: " + this.getCategory());
