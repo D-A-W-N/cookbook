@@ -26,11 +26,12 @@ public class DatabaseConnection {
 
         ResultSet resultSelect = db.executeQuery("SELECT * FROM recipes WHERE name LIKE \"%" + searchString + "%\"");
         ArrayList<String> matchingNames = new ArrayList<>();
+
         while (resultSelect.next())
         {
             String name = resultSelect.getString("name");
             int recipeId = resultSelect.getInt("recipeId");
-            matchingNames.add(name);
+            matchingNames.add(String.valueOf(recipeId));
         }
 
         for (String name: matchingNames)

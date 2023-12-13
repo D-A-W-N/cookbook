@@ -26,6 +26,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -115,22 +120,75 @@ public class FrontpageController {
             //textfield.setPromptText("Search here!");
 
 
+            while (resultSet.next()) {
+                Recipe recipe = new Recipe(resultSet.getInt("recipeId"));
+
+                this.buildScene(recipe, count, rowCount);
+
+                if(count == 0) {
+                    count = 1;
+                } else {
+                    count = 0;
+                    rowCount++;
+                }
+
+                System.out.println("Items initialized");
+            }
+
             textfield.textProperty().addListener((obs, oldValue, newValue) -> {
                 System.out.println(newValue);
 
-                ArrayList<String> matchingNames = null;
+                ArrayList<String> matchingRecipes = null;
                 try {
-                    matchingNames = DatabaseConnection.getRecipesByName(newValue);
+                    matchingRecipes = DatabaseConnection.getRecipesByName(newValue);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            });
 
-            while (resultSet.next()) {
-                Recipe recipe = new Recipe(resultSet.getInt("recipeId"));
-                VBox itemWrapper = new VBox();
-                itemWrapper.getStyleClass().add("item-wrapper");
-                itemWrapper.setAlignment(Pos.CENTER);
+                System.out.println(matchingRecipes);
+
+                items.getChildren().clear();
+
+                int countSearch = 0;
+                int rowCountSearch = 0;
+
+                if (!matchingRecipes.isEmpty()) {
+                    for (int i = 0; i < matchingRecipes.size(); i++) {
+                        Recipe recipe = new Recipe(Integer.parseInt(matchingRecipes.get(i)));
+                        System.out.println(recipe);
+
+                        this.buildScene(recipe, countSearch, rowCountSearch);
+
+                        if(countSearch == 0) {
+                            countSearch = 1;
+                        } else {
+                            countSearch = 0;
+                            rowCountSearch++;
+                        }
+
+                        System.out.println("Items filtered");
+                    }
+                } else {
+                    VBox itemWrapper = new VBox();
+                    Text error = new Text();
+
+                    error.setText("Es wurden keine Rezepte gefunden.");
+                    error.setTextAlignment(TextAlignment.CENTER);
+
+                    itemWrapper.getChildren().add(error);
+
+                    items.add(itemWrapper, 0, 0);
+                }
+            });
+        } catch (SQLException e) {
+            db.printSQLException(e);
+        }
+    }
+
+    public void buildScene(Recipe recipe, int count, int rowCount) {
+        VBox itemWrapper = new VBox();
+        itemWrapper.getStyleClass().add("item-wrapper");
+        itemWrapper.setAlignment(Pos.CENTER);
 
 
 
@@ -178,31 +236,17 @@ public class FrontpageController {
                             throw new RuntimeException(e);
                         }
 
-                        Scene detailScene = new Scene(detailRoot, 1280, 720);
-                        Stage primaryStage = (Stage) name.getScene().getWindow(); // Ersetzen Sie "yourStartPageAnchorPane" durch das entsprechende Element in Ihrer Startseite
-                        primaryStage.setScene(detailScene);
-                        primaryStage.show();
-                    }
-                });
-
-                itemWrapper.getChildren().add(imageView);
-                itemWrapper.getChildren().add(name);
-
-                items.add(itemWrapper, count, rowCount);
-
-
-                if(count == 0) {
-                    count = 1;
-                } else {
-                    count = 0;
-                    rowCount++;
-                }
-
-                System.out.println("Items initialized");
+                Scene detailScene = new Scene(detailRoot, 1280, 720);
+                Stage primaryStage = (Stage) name.getScene().getWindow(); // Ersetzen Sie "yourStartPageAnchorPane" durch das entsprechende Element in Ihrer Startseite
+                primaryStage.setScene(detailScene);
+                primaryStage.show();
             }
-        } catch (SQLException e) {
-            db.printSQLException(e);
-        }
+        });
+
+        itemWrapper.getChildren().add(imageView);
+        itemWrapper.getChildren().add(name);
+
+        items.add(itemWrapper, count, rowCount);
     }
 
     // Methode für die Animation nach oben
