@@ -227,8 +227,8 @@ public class FrontpageController {
                         }
                         DetailPageController detailPageController = loader.getController();
 
-                        int selectedRecipeId = recipe.getRecipeId(); // Hier müssen Sie die ID des ausgewählten Rezepts bekommen
-                        detailPageController.initialize(selectedRecipeId); // Nehmen Sie an, dass die Methode in DetailPageController `loadRecipe` heißt
+                        int selectedRecipeId = recipe.getRecipeId();
+                        detailPageController.initialize(selectedRecipeId);
 
                         try {
                             detailPageController.getInstructionForRecipe(selectedRecipeId);

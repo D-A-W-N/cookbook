@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-import com.example.demo.model.Recipe;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -88,7 +87,7 @@ public class DetailPageController{
         }
     }
 
-    public void initialize() {
+    public void initialize(int selectedRecipeId) {
         try {
             String recipeInstructions = getInstructionForRecipe(4)[0];
             String recipeName = getInstructionForRecipe(4)[1];

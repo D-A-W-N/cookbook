@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.Cursor?>
+<HBox alignment="CENTER_LEFT" maxHeight="75.0" prefHeight="75.0" spacing="10.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HeaderController">
+
+    <Label fx:id="showFrontpageButton" alignment="TOP_LEFT" onMouseClicked="#goToMainPage" style="-fx-font-size: 30; -fx-font-weight: bold;" text="Kochbuch" textFill="WHITE">
+      <padding>
+         <Insets left="40.0" />
+      </padding>
+        <cursor>
+            <Cursor fx:constant="HAND"/>
+        </cursor>
+
+    </Label>
+</HBox>

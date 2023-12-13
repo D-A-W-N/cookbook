@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Recipe extends Node {
     private int recipeId;
@@ -184,5 +185,13 @@ public class Recipe extends Node {
     @Override
     public Node getStyleableNode() {
         return super.getStyleableNode();
+    }
+
+    public static int getRandomRecipeId() {
+
+        int minId = 1;
+        int maxId = 12;
+
+        return ThreadLocalRandom.current().nextInt(minId, maxId + 1);
     }
 }
