@@ -26,6 +26,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class FrontpageController {
@@ -51,71 +53,10 @@ public class FrontpageController {
 
             textfield.setPromptText("Search here!");
 
-            textfield.textProperty().addListener((obs, oldValue, newValue) -> {
-                System.out.println(newValue);
-
-                ArrayList<String> matchingNames = null;
-                try {
-                    matchingNames = DatabaseConnection.getRecipesByName(newValue);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-
             while (resultSet.next()) {
                 Recipe recipe = new Recipe(resultSet.getInt("recipeId"));
-                VBox itemWrapper = new VBox();
-                itemWrapper.getStyleClass().add("item-wrapper");
-                itemWrapper.setAlignment(Pos.CENTER);
 
-                ImageView imageView = new ImageView();
-                Image image = new Image(MainApplication.class.getResource("/assets/" + recipe.getPicture()).toString());
-                imageView.setImage(image);
-                imageView.setFitWidth(300);
-                imageView.setFitHeight(300);
-                imageView.setPreserveRatio(true);
-
-                /*ArrayList<Ingredient> ingredientArrayList = recipe.getIngredients();
-                for (int i=0; i < ingredientArrayList.size(); i++) {
-                    System.out.println(ingredientArrayList.get(i).getName());
-                }*/
-
-                Hyperlink name = new Hyperlink();
-                name.setText(recipe.getName());
-                name.setMaxWidth(Double.MAX_VALUE);
-                name.setAlignment(Pos.CENTER);
-                name.getStyleClass().add("item-name");
-                name.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent actionEvent) {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe-view.fxml"));
-                        Parent detailRoot = null;
-                        try {
-                            detailRoot = loader.load();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        DetailPageController detailPageController = loader.getController();
-
-                        // Hier sollten Sie die ausgewählten Rezeptdaten an den DetailseiteController übergeben
-                        try {
-                            detailPageController.getInstructionForRecipe(4);
-                        } catch (SQLException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        Scene detailScene = new Scene(detailRoot, 1280, 720);
-                        Stage primaryStage = (Stage) name.getScene().getWindow(); // Ersetzen Sie "yourStartPageAnchorPane" durch das entsprechende Element in Ihrer Startseite
-                        primaryStage.setScene(detailScene);
-                        primaryStage.show();
-                    }
-                });
-
-                itemWrapper.getChildren().add(imageView);
-                itemWrapper.getChildren().add(name);
-
-                items.add(itemWrapper, count, rowCount);
-
+                this.buildScene(recipe, count, rowCount);
 
                 if(count == 0) {
                     count = 1;
@@ -126,8 +67,108 @@ public class FrontpageController {
 
                 System.out.println("Items initialized");
             }
+
+            textfield.textProperty().addListener((obs, oldValue, newValue) -> {
+                System.out.println(newValue);
+
+                ArrayList<String> matchingRecipes = null;
+                try {
+                    matchingRecipes = DatabaseConnection.getRecipesByName(newValue);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                System.out.println(matchingRecipes);
+
+                items.getChildren().clear();
+
+                int countSearch = 0;
+                int rowCountSearch = 0;
+
+                if (!matchingRecipes.isEmpty()) {
+                    for (int i = 0; i < matchingRecipes.size(); i++) {
+                        Recipe recipe = new Recipe(Integer.parseInt(matchingRecipes.get(i)));
+                        System.out.println(recipe);
+
+                        this.buildScene(recipe, countSearch, rowCountSearch);
+
+                        if(countSearch == 0) {
+                            countSearch = 1;
+                        } else {
+                            countSearch = 0;
+                            rowCountSearch++;
+                        }
+
+                        System.out.println("Items filtered");
+                    }
+                } else {
+                    VBox itemWrapper = new VBox();
+                    Text error = new Text();
+
+                    error.setText("Es wurden keine Rezepte gefunden.");
+                    error.setTextAlignment(TextAlignment.CENTER);
+
+                    itemWrapper.getChildren().add(error);
+
+                    items.add(itemWrapper, 0, 0);
+                }
+            });
         } catch (SQLException e) {
             db.printSQLException(e);
         }
+    }
+
+    public void buildScene(Recipe recipe, int count, int rowCount) {
+        VBox itemWrapper = new VBox();
+        itemWrapper.getStyleClass().add("item-wrapper");
+        itemWrapper.setAlignment(Pos.CENTER);
+
+        ImageView imageView = new ImageView();
+        Image image = new Image(MainApplication.class.getResource("/assets/essen1.png").toString());
+        imageView.setImage(image);
+        imageView.setFitWidth(300);
+        imageView.setFitHeight(300);
+        imageView.setPreserveRatio(true);
+
+                /*ArrayList<Ingredient> ingredientArrayList = recipe.getIngredients();
+                for (int i=0; i < ingredientArrayList.size(); i++) {
+                    System.out.println(ingredientArrayList.get(i).getName());
+                }*/
+
+        Hyperlink name = new Hyperlink();
+        name.setText(recipe.getName());
+        name.setMaxWidth(Double.MAX_VALUE);
+        name.setAlignment(Pos.CENTER);
+        name.getStyleClass().add("item-name");
+        name.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/recipe-view.fxml"));
+                Parent detailRoot = null;
+                try {
+                    detailRoot = loader.load();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                DetailPageController detailPageController = loader.getController();
+
+                // Hier sollten Sie die ausgewählten Rezeptdaten an den DetailseiteController übergeben
+                try {
+                    detailPageController.getInstructionForRecipe(4);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                Scene detailScene = new Scene(detailRoot, 1280, 720);
+                Stage primaryStage = (Stage) name.getScene().getWindow(); // Ersetzen Sie "yourStartPageAnchorPane" durch das entsprechende Element in Ihrer Startseite
+                primaryStage.setScene(detailScene);
+                primaryStage.show();
+            }
+        });
+
+        itemWrapper.getChildren().add(imageView);
+        itemWrapper.getChildren().add(name);
+
+        items.add(itemWrapper, count, rowCount);
     }
 }
