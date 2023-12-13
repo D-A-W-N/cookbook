@@ -69,7 +69,7 @@ public class FrontpageController {
         String recipeName = randomRecipe.getName();
         String recipePicture = randomRecipe.getPicture();
 
-        //System.out.println(recipePicture);
+        System.out.println("das ist das  recipepicture: " + recipePicture);
 
         Image recipeOfDayPic = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/" + recipePicture)));
         this.randomPic.setImage(recipeOfDayPic);
@@ -126,9 +126,16 @@ public class FrontpageController {
             Button categoryButton = new Button();
             categoryButton.setText(category.getName());
 
+            categoryButton.setPrefWidth(150);
+            categoryButton.setPrefHeight(60);
+
+            categoryButton.getStyleClass().add("category-button");
+
             categoryButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
+
+
                     ArrayList<String> matchingRecipesByCategory = null;
                     try {
                         matchingRecipesByCategory = DatabaseConnection.getRecipesByCategoryId(category.getCategoryId());
@@ -261,7 +268,7 @@ public class FrontpageController {
 
 
                 String imagePath = "/assets/" + recipe.getPicture();
-        System.out.println(imagePath);
+        System.out.println("das ist der imagepath: " + imagePath);
                 Image image = new Image(
                         String.valueOf(MainApplication.class.getResource(
                                 imagePath
@@ -316,18 +323,18 @@ public class FrontpageController {
         items.add(itemWrapper, count, rowCount);
     }
 
-    // Methode für die Animation nach oben
+
     private void slideUp(Node node) {
-        TranslateTransition slideUpTransition = new TranslateTransition(Duration.millis(500), node);
+        TranslateTransition slideUpTransition = new TranslateTransition(Duration.millis(300), node);
         slideUpTransition.setFromY(52);
-        slideUpTransition.setToY(0); // Verändere diesen Wert für die gewünschte Verschiebung
+        slideUpTransition.setToY(0);
         slideUpTransition.play();
     }
 
-    // Methode für die Rückwärtsanimation
+
     private void slideDown(Node node) {
         TranslateTransition slideDownTransition = new TranslateTransition(Duration.millis(500), node);
-        slideDownTransition.setToY(0); // Setze die Verschiebung zurück
+        slideDownTransition.setToY(0);
         slideDownTransition.play();
     }
 }

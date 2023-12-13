@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -60,7 +59,7 @@
             </StackPane>
             <StackPane maxWidth="700.0" prefHeight="70.0">
                <children>
-                  <TextField fx:id="textfield" prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #52361b;">
+                  <TextField fx:id="textfield" prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #52361b; -fx-border-width: 2px;">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -70,13 +69,16 @@
                   </TextField>
                </children>
                <padding>
-                  <Insets bottom="50.0" top="20.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </padding>
             </StackPane>
-            <HBox fx:id="categories" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+            <HBox fx:id="categories" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
               <!-- <children>
                   <Button mnemonicParsing="false" text="Button" />
                   <Button mnemonicParsing="false" text="Button" />

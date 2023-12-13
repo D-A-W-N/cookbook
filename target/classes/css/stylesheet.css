@@ -30,3 +30,19 @@
     -fx-background-size: cover;
     -fx-background-position: center;
 }
+
+.category-button {
+    -fx-border-color: #52361b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-font-size: 17px;
+}
+
+.category-button: hover {
+    -fx-cursor:hand;
+}
+
+.category-button: pressed {
+    -fx-background-color: #52361b;
+    -fx-text-fill: white;
+}
