@@ -1,5 +1,5 @@
 .header {
-    -fx-background-image: url("../assets/header.png");
+   /* -fx-background-image: url("../assets/header.png");*/
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -8,10 +8,25 @@
 .item-name {
     -fx-padding: 15px 15px;
     -fx-margin: 15px 15px;
+    -fx-font-size: 16px;
+    -fx-text-fill:  #52361b;
 }
 
 .item-wrapper {
-    -fx-padding: 15px 15px;
+    -fx-padding: 30px 0 0 0;
+    -fx-border-color: #52361b;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+    -fx-background-color: lightgrey;
+    -fx-border-width: 2px;
+
     /*-fx-border-width: 1px;
     -fx-border-color: red;*/
+}
+
+.vbox-with-background {
+    -fx-background-image: url('../assets/background.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }

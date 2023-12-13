@@ -63,13 +63,15 @@ public class FrontpageController {
         String recipeName = randomRecipe.getName();
         String recipePicture = randomRecipe.getPicture();
 
+        //System.out.println(recipePicture);
+
         Image recipeOfDayPic = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/" + recipePicture)));
         this.randomPic.setImage(recipeOfDayPic);
 
         this.hoveredRecipeName.setText("Gericht des Tages!\n" + recipeName);
 
         stackPane.setOnMouseEntered(event -> {
-            stackPane.setVisible(false);
+            //stackPane.setVisible(false);
             hoveredRecipeName.setVisible(true);
 
             slideUp(hoveredRecipeName);
@@ -101,10 +103,9 @@ public class FrontpageController {
         });
 
 
-        hoveredRecipeName.setOnMouseExited(event -> {
+        stackPane.setOnMouseExited(event -> {
             slideDown(hoveredRecipeName);
             hoveredRecipeName.setVisible(false);
-            stackPane.setVisible(true);
         });
 
         System.out.println(recipeName);
@@ -194,7 +195,9 @@ public class FrontpageController {
 
                 ImageView imageView = new ImageView();
 
+
                 String imagePath = "/assets/" + recipe.getPicture();
+        System.out.println(imagePath);
                 Image image = new Image(
                         String.valueOf(MainApplication.class.getResource(
                                 imagePath
@@ -252,15 +255,15 @@ public class FrontpageController {
     // Methode für die Animation nach oben
     private void slideUp(Node node) {
         TranslateTransition slideUpTransition = new TranslateTransition(Duration.millis(500), node);
-        slideUpTransition.setFromY(100);
-        slideUpTransition.setToY(90); // Verändere diesen Wert für die gewünschte Verschiebung
+        slideUpTransition.setFromY(52);
+        slideUpTransition.setToY(0); // Verändere diesen Wert für die gewünschte Verschiebung
         slideUpTransition.play();
     }
 
     // Methode für die Rückwärtsanimation
     private void slideDown(Node node) {
         TranslateTransition slideDownTransition = new TranslateTransition(Duration.millis(500), node);
-        slideDownTransition.setToY(-100); // Setze die Verschiebung zurück
+        slideDownTransition.setToY(0); // Setze die Verschiebung zurück
         slideDownTransition.play();
     }
 }

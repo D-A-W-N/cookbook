@@ -18,6 +18,7 @@ public class MainApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/frontpage-view.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        scene.getRoot().requestFocus();
         stage.setTitle("Cookbook");
         stage.setScene(scene);
         stage.show();
