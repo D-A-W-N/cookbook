@@ -190,7 +190,7 @@ public class Recipe extends Node {
     public static int getRandomRecipeId() {
 
         int minId = 1;
-        int maxId = 12;
+        int maxId = 20;
 
         return ThreadLocalRandom.current().nextInt(minId, maxId + 1);
     }
