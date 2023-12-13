@@ -42,6 +42,22 @@ public class DatabaseConnection {
         return matchingNames;
     }
 
+    public static ArrayList<String> getRecipesByCategoryId(int categoryId) throws SQLException {
+        DatabaseConnection db = DatabaseConnection.getInstance();
+
+        ResultSet resultSelect = db.executeQuery("SELECT * FROM recipes WHERE category = " + categoryId);
+        ArrayList<String> matchingRecipes = new ArrayList<>();
+
+        while (resultSelect.next())
+        {
+            int recipeId = resultSelect.getInt("recipeId");
+            matchingRecipes.add(String.valueOf(recipeId));
+        }
+
+
+        return matchingRecipes;
+    }
+
     public Connection getConnection() {
         try {
             conn = DriverManager.getConnection(url, username, password);

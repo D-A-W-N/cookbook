@@ -73,16 +73,16 @@
                   <Insets bottom="50.0" top="20.0" />
                </padding>
             </StackPane>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
+            <HBox fx:id="categories" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="150.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <children>
+              <!-- <children>
                   <Button mnemonicParsing="false" text="Button" />
                   <Button mnemonicParsing="false" text="Button" />
                   <Button mnemonicParsing="false" text="Button" />
                   <Button mnemonicParsing="false" text="Button" />
-               </children>
+               </children>-->
             </HBox>
             <GridPane fx:id="items" alignment="CENTER" hgap="50.0" vgap="30.0">
               <columnConstraints>

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.example.demo.model.Category;
 import com.example.demo.model.Ingredient;
 import com.example.demo.model.Recipe;
 import javafx.animation.TranslateTransition;
@@ -21,12 +22,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -37,6 +40,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class FrontpageController {
+    @FXML
+    private HBox categories;
+
     @FXML
     private Label hoveredRecipeName;
 
@@ -53,7 +59,7 @@ public class FrontpageController {
     private StackPane stackPane;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         DatabaseConnection db = DatabaseConnection.getInstance();
         Connection conn = db.getConnection();
 
@@ -112,6 +118,62 @@ public class FrontpageController {
         System.out.println(recipePicture);
 
 
+        ResultSet categorySet = db.executeQuery("SELECT * FROM categories");
+
+        while (categorySet.next()) {
+            Category category = new Category(categorySet.getInt("categoryId"));
+
+            Button categoryButton = new Button();
+            categoryButton.setText(category.getName());
+
+            categoryButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    ArrayList<String> matchingRecipesByCategory = null;
+                    try {
+                        matchingRecipesByCategory = DatabaseConnection.getRecipesByCategoryId(category.getCategoryId());
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    int countCategory = 0;
+                    int rowCountCategory = 0;
+                    if (!matchingRecipesByCategory.isEmpty()) {
+                        items.getChildren().clear();
+
+                        for (int i = 0; i < matchingRecipesByCategory.size(); i++) {
+                            Recipe recipe = new Recipe(Integer.parseInt(matchingRecipesByCategory.get(i)));
+                            System.out.println(recipe);
+
+                            buildScene(recipe, countCategory, rowCountCategory);
+
+                            if(countCategory == 0) {
+                                countCategory = 1;
+                            } else {
+                                countCategory = 0;
+                                rowCountCategory++;
+                            }
+
+                            System.out.println("Items filtered by category.");
+                        }
+                    } else {
+                        items.getChildren().clear();
+                        VBox itemWrapper = new VBox();
+                        Text error = new Text();
+
+                        error.setText("Es wurden keine Rezepte gefunden.");
+                        error.setTextAlignment(TextAlignment.CENTER);
+
+                        itemWrapper.getChildren().add(error);
+
+                        items.add(itemWrapper, 0, 0);
+                    }
+                }
+            });
+
+            categories.getChildren().add(categoryButton);
+        }
+
 
         try {
             ResultSet resultSet = db.executeQuery("SELECT * FROM recipes");
@@ -137,8 +199,6 @@ public class FrontpageController {
             }
 
             textfield.textProperty().addListener((obs, oldValue, newValue) -> {
-                System.out.println(newValue);
-
                 ArrayList<String> matchingRecipes = null;
                 try {
                     matchingRecipes = DatabaseConnection.getRecipesByName(newValue);
@@ -146,14 +206,16 @@ public class FrontpageController {
                     throw new RuntimeException(e);
                 }
 
-                System.out.println(matchingRecipes);
+                /*System.out.println(matchingRecipes);
 
-                items.getChildren().clear();
+                items.getChildren().clear();*/
 
                 int countSearch = 0;
                 int rowCountSearch = 0;
 
                 if (!matchingRecipes.isEmpty()) {
+                    items.getChildren().clear();
+
                     for (int i = 0; i < matchingRecipes.size(); i++) {
                         Recipe recipe = new Recipe(Integer.parseInt(matchingRecipes.get(i)));
                         System.out.println(recipe);
@@ -167,9 +229,11 @@ public class FrontpageController {
                             rowCountSearch++;
                         }
 
-                        System.out.println("Items filtered");
+                        System.out.println("Items filtered by name.");
                     }
                 } else {
+                    items.getChildren().clear();
+
                     VBox itemWrapper = new VBox();
                     Text error = new Text();
 

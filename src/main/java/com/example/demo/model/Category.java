@@ -28,6 +28,10 @@ public class Category {
         }
     }
 
+    public int getCategoryId() {
+        return this.categoryId;
+    }
+
     static boolean createCategory(String name) {
         DatabaseConnection db = DatabaseConnection.getInstance();
         Connection conn = db.getConnection();
