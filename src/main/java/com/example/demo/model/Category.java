@@ -16,6 +16,10 @@ public class Category {
         return name;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
     public Category(int categoryId) {
         this.categoryId = categoryId;
         ResultSet resultSet = db.executeQuery("SELECT * FROM categories WHERE categoryId = " + categoryId);
