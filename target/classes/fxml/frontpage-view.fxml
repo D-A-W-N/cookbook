@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.FrontpageController">
 
@@ -25,80 +26,95 @@
       </VBox>
    </top>
    <center>
-
-<ScrollPane fitToWidth="true" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox alignment="CENTER" spacing="20.0" styleClass="vbox-with-background">
-          <padding>
-              <Insets bottom="20.0" top="20.0" />
-          </padding>
+      <StackPane fx:id="rootPane">
          <children>
-            <StackPane alignment="BOTTOM_CENTER" prefHeight="265.0" prefWidth="886.0" styleClass="header">
+      
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" stylesheets="@../css/stylesheet.css">
+         <content>
+            <VBox alignment="CENTER" spacing="20.0">
+                <padding>
+                    <Insets bottom="20.0" top="20.0" />
+                </padding>
                <children>
-                  <ImageView fx:id="randomPic" fitHeight="317.0" fitWidth="564.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../assets/picNotLoaded.jpg" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" opacity="0.8" prefHeight="88.0" prefWidth="564.0" style="-fx-background-color: lightgrey;" />
-                  <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="88.0" prefWidth="564.0" text="Gericht des Tages!" textAlignment="CENTER" textFill="#52361b">
-                     <font>
-                        <Font name="System Bold" size="48.0" />
-                     </font>
-                  </Label>
-                  <StackPane fx:id="stackPane" alignment="BOTTOM_CENTER" maxHeight="143.0" maxWidth="566.0" prefHeight="93.0" prefWidth="566.0">
+                  <StackPane alignment="BOTTOM_CENTER" prefHeight="265.0" prefWidth="886.0" styleClass="header">
                      <children>
-                        <Label fx:id="hoveredRecipeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="146.0" prefWidth="565.0" style="-fx-background-color: lightgrey; -fx-cursor: hand;" textAlignment="CENTER" textFill="#52361b" visible="false">
+                        <ImageView fx:id="randomPic" fitHeight="317.0" fitWidth="564.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../assets/picNotLoaded.jpg" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" opacity="0.8" prefHeight="88.0" prefWidth="564.0" style="-fx-background-color: lightgrey;" />
+                        <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="88.0" prefWidth="564.0" text="Gericht des Tages!" textAlignment="CENTER" textFill="#52361b">
                            <font>
                               <Font name="System Bold" size="48.0" />
                            </font>
                         </Label>
+                        <StackPane fx:id="stackPane" alignment="BOTTOM_CENTER" maxHeight="143.0" maxWidth="566.0" prefHeight="93.0" prefWidth="566.0">
+                           <children>
+                              <Label fx:id="hoveredRecipeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="146.0" prefWidth="565.0" style="-fx-background-color: lightgrey; -fx-cursor: hand;" textAlignment="CENTER" textFill="#52361b" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="48.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </StackPane>
                      </children>
                   </StackPane>
+                  <StackPane maxWidth="700.0" prefHeight="70.0">
+                     <children>
+                        <TextField fx:id="textfield" prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #52361b; -fx-border-width: 2px;">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </TextField>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
+                  </StackPane>
+                  <HBox fx:id="categories" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                    <!-- <children>
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children>-->
+                  </HBox>
+                  <GridPane fx:id="items" alignment="CENTER" hgap="50.0" vgap="30.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="325.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="325.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                       <RowConstraints minHeight="50.0" vgrow="NEVER" />
+                       <RowConstraints minHeight="50.0" vgrow="NEVER" />
+                    </rowConstraints>
+                  </GridPane>
+                        <!--<AnchorPane maxHeight="50.0" maxWidth="50.0" minHeight="50.0">
+                           <VBox.margin>
+                              <Insets bottom="-50.0" right="-750.0" />
+                           </VBox.margin>
+                           <children>
+                        <Button onAction="#scrollToTop" styleClass="scrollToTopBtn" text="Nach oben" />
+                           </children>
+                        </AnchorPane>-->
                </children>
-            </StackPane>
-            <StackPane maxWidth="700.0" prefHeight="70.0">
-               <children>
-                  <TextField fx:id="textfield" prefHeight="50.0" promptText="Suche..." style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #52361b; -fx-border-width: 2px;">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="20.0" top="20.0" />
-               </padding>
-            </StackPane>
-            <HBox fx:id="categories" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-              <!-- <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="Button" />
-               </children>-->
-            </HBox>
-            <GridPane fx:id="items" alignment="CENTER" hgap="50.0" vgap="30.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="325.0" />
-                <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="325.0" />
-              </columnConstraints>
-              <rowConstraints>
-                 <RowConstraints minHeight="50.0" vgrow="NEVER" />
-                 <RowConstraints minHeight="50.0" vgrow="NEVER" />
-              </rowConstraints>
-            </GridPane>
+            </VBox>
+      
+         </content>
+      </ScrollPane>
+
          </children>
-      </VBox>
-   </content>
-</ScrollPane>
+         <Button fx:id="scrToTop" onAction="#scrollToTop"> </Button>
+      </StackPane>
    </center>
 </BorderPane>

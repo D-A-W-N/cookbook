@@ -28,9 +28,19 @@ public class HeaderController {
     @FXML
     private void goToMainPage(MouseEvent event) throws IOException {
         Parent frontPageRoot = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/frontpage-view.fxml")));
-        Scene frontPageScene = new Scene(frontPageRoot, 1280, 720);
+
+
+
         Stage primaryStage = (Stage) showFrontpageButton.getScene().getWindow();
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+        Scene frontPageScene = new Scene(frontPageRoot);
         primaryStage.setScene(frontPageScene);
+        primaryStage.setWidth(currentWidth);
+        primaryStage.setHeight(currentHeight);
+        frontPageScene.getRoot().requestFocus();
+        primaryStage.setScene(frontPageScene);
+
     }
 
 }

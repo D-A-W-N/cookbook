@@ -1,17 +1,13 @@
 package com.example.demo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import com.example.demo.model.Category;
-import com.example.demo.model.Ingredient;
 import com.example.demo.model.Recipe;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -22,15 +18,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -56,12 +48,33 @@ public class FrontpageController {
     private ImageView randomPic;
 
     @FXML
+    private Button scrToTop;
+
+    @FXML
     private StackPane stackPane;
+
+    @FXML
+    private ScrollPane scrollPane;
+
+
 
     @FXML
     public void initialize() throws SQLException {
         DatabaseConnection db = DatabaseConnection.getInstance();
         Connection conn = db.getConnection();
+
+        scrToTop.setTranslateX(450);
+        scrToTop.setTranslateY(295);
+        scrToTop.setStyle("-fx-cursor: hand");
+        scrToTop.setMinSize(60, 58);
+
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/assets/ShowTop.png")));
+        BackgroundImage backgroundImage = new BackgroundImage(image,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        Background background = new Background(backgroundImage);
+
+        scrToTop.setBackground(background);
 
         int randomRecipeId = Recipe.getRandomRecipeId();
         Recipe randomRecipe = new Recipe(randomRecipeId);
@@ -255,6 +268,7 @@ public class FrontpageController {
         } catch (SQLException e) {
             db.printSQLException(e);
         }
+
     }
 
     public void buildScene(Recipe recipe, int count, int rowCount) {
@@ -310,11 +324,17 @@ public class FrontpageController {
                             throw new RuntimeException(e);
                         }
 
-                Scene detailScene = new Scene(detailRoot, 1280, 720);
-                Stage primaryStage = (Stage) name.getScene().getWindow(); // Ersetzen Sie "yourStartPageAnchorPane" durch das entsprechende Element in Ihrer Startseite
-                primaryStage.setScene(detailScene);
-                primaryStage.show();
-            }
+                        Stage primaryStage = (Stage) name.getScene().getWindow();
+                        double currentWidth = primaryStage.getWidth();
+                        double currentHeight = primaryStage.getHeight();
+
+                        Scene detailScene = new Scene(detailRoot);
+
+                        primaryStage.setScene(detailScene);
+                        primaryStage.setWidth(currentWidth);
+                        primaryStage.setHeight(currentHeight);
+                        primaryStage.show();
+                    }
         });
 
         itemWrapper.getChildren().add(imageView);
@@ -336,5 +356,9 @@ public class FrontpageController {
         TranslateTransition slideDownTransition = new TranslateTransition(Duration.millis(500), node);
         slideDownTransition.setToY(0);
         slideDownTransition.play();
+    }
+
+    public void scrollToTop(ActionEvent actionEvent) {
+        scrollPane.setVvalue(0);
     }
 }
